@@ -15,7 +15,7 @@ def index():
     page={'now': datetime.now(),'title': 'Home', 'app': app_data}
     data={'percentage': '105 %','pressure':'3.25 PSI'}
     with urllib.request.urlopen(MagMon) as f:
-        data['pressure'] = f.read()
+        data['pressure'] = str(f.read())
     page['wifi_status'] = 'error'
     page['alarm_status'] = 'alarm'
     return render_template('index.html', page=page, data=data,)
@@ -23,7 +23,7 @@ def index():
 @app.route('/data')
 def data():
     page={'now': datetime.now(),'title': 'Home', 'app': app_data}
-    return "data here"
+    return "here is data"
 
 @app.route('/alarm')
 def alarm():

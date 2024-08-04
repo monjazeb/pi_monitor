@@ -16,25 +16,11 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <nav>
-            <ul>
-                <li><a href=""><i class="material-icons">home</i></a></li>
-                <li><a href=""><i class="material-icons">bug_report</i></a></li>
-                <li><a href=""><i class="material-icons">settings</i></a></li>
-                <li><a href=""><i class="material-icons color-{{page.wifi_status}}">wifi_off</i></a></li>
-                <li><a href=""><i class="material-icons color-{{page.alarm_status}}">notifications_active</i></a></li>
-<!--            <li><a href="" style="color:red;"><i class="material-icons">cancel</i></a></li>
-                <li><a href="" style="color:green;"><i class="material-icons">check_circle</i></a></li> -->
-            </ul>
-        </nav>
+        {% include 'nav.html' %}
         <main>
-            {% block content %}
-            {% endblock content %}
+            {% block content %}{% endblock content %}
         </main>
-        <footer>
-            <span>{{page.app.company}} {{page.app.version}}</span> - 
-            <span style="color:var(--page-fg);">last update: {{page.now}}</span>
-        </footer>
+        {% include 'footer.html' %}
         <script src="/static/scripts.js" async defer></script>
     </body>
 </html>
