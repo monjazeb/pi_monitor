@@ -1,58 +1,59 @@
 import urllib, json
 from datetime import datetime
-import urllib.error
-from flask import render_template, flash
+from flask import render_template, flash, jsonify
 from monitor import app
+from monitor import config
 
-# with open('config.json', 'r') as f:
-#     config = json.load(f)
-    
-MagMon = "http://10.0.2.162:5000/data"
-app_data = {'name':'MMM',
-            'company': 'ARPA Medical co.',
-            'version': 'v0.1 2024'}
 
 @app.route('/')
 def index():
-    page={'now': datetime.now(),'title': 'Home', 'app': app_data}
-    data={'percentage': '105 %','pressure':'3.25 PSI'}
+    page={'now': datetime.now(),'title': 'Home', 'app': config.app_data}
+    data={}
     try:
-        with urllib.request.urlopen(MagMon) as f:
-            fin = f.read()
-            data['pressure']=fin
+        with urllib.request.urlopen(config.MagMon) as f:
+            data=json.load(f)
+        print(data)
+        page['wifi_status'] = 'normal'
+        page['alarm_status'] = 'normal'
     except urllib.error.URLError:
         data['pressure']='No Data'
         page['wifi_status'] = 'error'
-    page['alarm_status'] = 'alarm'
+        page['alarm_status'] = 'alarm'
     return render_template('index.html', page=page, data=data,)
 
-@app.route('/data')
-def data():
-    page={'now': datetime.now(),'title': 'Home', 'app': app_data}
-    return "here is data"
+@app.route('/api')
+def api():
+    # page={'now': datetime.now(),'title': 'Home', 'app': config.app_data}
+    data = {
+        'pressure': '2.35 PSI',
+        'percent': '98.2 %',
+        'coldhead': '42.6 K',
+        'waterflow': '5.3 lpm'
+    }
+    return data
 
 @app.route('/alarm')
 def alarm():
-    page={'now': datetime.now(),'title': 'Home', 'app': app_data}
+    page={'now': datetime.now(),'title': 'Home', 'app': config.app_data}
     return render_template('alarm.html', page=page)
 
 @app.route('/log')
 def viewlog():
-    page={'now': datetime.now(),'title': 'Home', 'app': app_data}
+    page={'now': datetime.now(),'title': 'Home', 'app': config.app_data}
     return render_template('log.html', page=page)
 
 @app.route('/settings')
 def settings():
-    page={'now': datetime.now(),'title': 'Home', 'app': app_data}
+    page={'now': datetime.now(),'title': 'Home', 'app': config.app_data}
     return render_template('settings.html', page=page)
 
 @app.route('/wifi')
 def wifi():
-    page={'now': datetime.now(),'title': 'Home', 'app': app_data}
+    page={'now': datetime.now(),'title': 'Home', 'app': config.app_data}
     return render_template('wifi.html', page=page)
 
 @app.route('/r')
 def r():
-    page={'now': datetime.now(),'title': 'Home', 'app': app_data}
+    page={'now': datetime.now(),'title': 'Home', 'app': config.app_data}
     return render_template('r.html', page=page)
 

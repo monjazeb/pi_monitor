@@ -14,7 +14,7 @@
          url(/static/font/MaterialIcons-Regular.woff2) format('woff2'),
          url(/static/font/MaterialIcons-Regular.woff) format('woff'),
          url(/static/font/MaterialIcons-Regular.ttf) format('truetype');
- }
+}
  .material-icons {
    font-family: 'Material Icons';
    font-weight: normal;
@@ -38,8 +38,9 @@
  
    /* Support for IE. */
    font-feature-settings: 'liga';
- }
+}
 * {
+    /* font-family: 'Courier New', Courier, monospace; */
     margin: 0;
     padding: 0;
 }
@@ -83,16 +84,41 @@ main {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 main h1 {
     font-size: 72px;
 }
-.button {
-    padding: 10px;
+.button a{
+    text-decoration: none;
+    padding:1em;
     background-color: var(--menu-fg);
+    color: var(--menu-bg);
+    user-select: none;
+    cursor: pointer;
+}
+.left a{
+    border-radius: 0 10px 10px 0;
+}
+.right a{
+    border-radius: 10px 0 0 10px;
+}
+
+.data-container{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data-item{
+    display: none;
 }
 
 footer {
@@ -102,6 +128,19 @@ footer {
     color: var(--menu-fg);
 }
 
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: var(--menu-bg);
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+.active{
+    background-color: var(--menu-fg);
+}
 .color-normal{
     color:var(--menu-fg);
 }
@@ -110,4 +149,12 @@ footer {
 }
 .color-alarm{
     color: yellow;
+}
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+@keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
 }
