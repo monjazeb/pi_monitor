@@ -1,11 +1,13 @@
-import urllib
+import urllib, json
 from datetime import datetime
+import urllib.error
 from flask import render_template, flash
 from monitor import app
 
-
+# with open('config.json', 'r') as f:
+#     config = json.load(f)
+    
 MagMon = "http://10.0.2.162:5000/data"
-
 app_data = {'name':'MMM',
             'company': 'ARPA Medical co.',
             'version': 'v0.1 2024'}
@@ -14,10 +16,13 @@ app_data = {'name':'MMM',
 def index():
     page={'now': datetime.now(),'title': 'Home', 'app': app_data}
     data={'percentage': '105 %','pressure':'3.25 PSI'}
-    with urllib.request.urlopen(MagMon) as f:
-        fin = f.read()
-        data['pressure']=fin
-    page['wifi_status'] = 'error'
+    try:
+        with urllib.request.urlopen(MagMon) as f:
+            fin = f.read()
+            data['pressure']=fin
+    except urllib.error.URLError:
+        data['pressure']='No Data'
+        page['wifi_status'] = 'error'
     page['alarm_status'] = 'alarm'
     return render_template('index.html', page=page, data=data,)
 
