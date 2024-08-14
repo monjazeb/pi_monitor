@@ -3,6 +3,8 @@
 <div class='chart-container'>
     {% include 'sidebar.html' %}
     <form class="setting-form" method="post">
+        <label for="contact">Contact List</label>
+        <textarea name="contact" rows="9">{{request.form['contact']}}</textarea>
         <button type="submit">Save Changes</button>
     </form>
 </div>

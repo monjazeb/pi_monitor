@@ -3,6 +3,8 @@
 <div class='chart-container'>
     {% include 'sidebar.html' %}
     <form class="setting-form" method="post">
+        <label for="site">Site Name</label>
+        <input type="text" name="site" value="{{request.form['site']}}"></input>
         <button type="submit">Save Changes</button>
     </form>
 </div>

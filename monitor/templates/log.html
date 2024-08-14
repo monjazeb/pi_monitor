@@ -1,4 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>LOG<h1>
+<div class="chart-container">
+    <div class="side">
+        <a onclick='drawChart("hepp",{{dataset|tojson}});'>% He</a>
+        <a onclick='drawChart("cryo",{{dataset|tojson}});'>Cryo</a>
+        <a onclick='drawChart("room",{{dataset|tojson}});'>Room</a>
+        <a onclick='drawChart("water",{{dataset|tojson}});'>Water</a>
+        <a onclick='drawChart("power",{{dataset|tojson}});'>Power</a>
+        <a onclick='drawChart("temp",{{dataset|tojson}});'>Temp</a>
+    </div>
+    <div class="chart">
+        <canvas id="chart" style="width=300px;"></canvas>
+    </div>
+</div>
 {% endblock content %}
+
